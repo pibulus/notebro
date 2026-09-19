@@ -133,6 +133,31 @@
 		}
 	}
 
+	// Touch swipe navigation for mobile
+	let touchStartX = 0;
+	let touchStartY = 0;
+
+	function handleTouchStart(e) {
+		if (!e.touches || e.touches.length === 0) return;
+		touchStartX = e.touches[0].clientX;
+		touchStartY = e.touches[0].clientY;
+	}
+
+	function handleTouchEnd(e) {
+		if (!e.changedTouches || e.changedTouches.length === 0) return;
+		const deltaX = e.changedTouches[0].clientX - touchStartX;
+		const deltaY = e.changedTouches[0].clientY - touchStartY;
+
+		// Horizontal swipe threshold 45px, more horizontal than vertical
+		if (Math.abs(deltaX) > 45 && Math.abs(deltaX) > Math.abs(deltaY) * 1.3) {
+			if (deltaX < 0) {
+				nextCard();
+			} else {
+				prevCard();
+			}
+		}
+	}
+
 	onMount(() => {
 		window.addEventListener('keydown', handleKeydown);
 		return () => {
@@ -141,7 +166,11 @@
 	});
 </script>
 
-<div class="w-full flex flex-col items-center">
+<div
+	class="w-full flex flex-col items-center touch-pan-y"
+	on:touchstart={handleTouchStart}
+	on:touchend={handleTouchEnd}
+>
 	<!-- The Active Card -->
 	{#if currentCard}
 		{#key currentCard.id}
@@ -158,7 +187,7 @@
 	{/if}
 
 	<!-- Dock below the card: Marker tray (left) + Card Pager (right) -->
-	<div class="w-full max-w-2xl mt-4 px-2 sm:px-0 flex items-center justify-between gap-3 flex-wrap sm:flex-nowrap">
+	<div class="w-full max-w-2xl mt-3 sm:mt-4 px-1 sm:px-0 flex items-center justify-between gap-1.5 sm:gap-3">
 		<HighlighterBar
 			activeColor={currentCard ? currentCard.color : 'yellow'}
 			onSelectColor={handleColorSelect}
@@ -166,29 +195,33 @@
 		/>
 
 		<!-- Tactile Pager Controls -->
-		<div class="flex items-center gap-1.5 font-mono text-xs select-none">
+		<div class="flex items-center gap-1 font-mono text-xs select-none shrink-0">
 			<button
 				type="button"
 				on:click={prevCard}
 				disabled={activeIndex <= 0}
-				class="btn-bro w-7 h-7 flex items-center justify-center rounded-lg bg-[#fffdf8] text-[#1e1714] disabled:opacity-25 disabled:cursor-not-allowed font-bold"
-				title="Previous Card (⌥←)"
+				class="btn-bro w-8 h-8 sm:w-8 sm:h-8 flex items-center justify-center rounded-lg bg-[#fffdf8] text-[#1e1714] disabled:opacity-25 disabled:cursor-not-allowed font-bold text-xs"
+				title="Previous Card (⌥← or swipe right)"
 				aria-label="Previous Card"
 			>
 				←
 			</button>
 
-			<div class="flex items-center gap-1.5 px-1.5">
+			<div class="flex items-center gap-0.5 px-0.5">
 				{#each cards as _, i}
 					<button
 						type="button"
 						on:click={() => jumpToCard(i)}
-						class="h-2.5 rounded-full transition-all border border-[#1e1714]/40 {activeIndex === i
-							? 'w-6 bg-[#1e1714]'
-							: 'w-2.5 bg-[#1e1714]/20 hover:bg-[#1e1714]/40'}"
+						class="w-5 h-8 flex items-center justify-center"
 						title="Card {i + 1} of {cards.length}"
 						aria-label="Jump to card {i + 1}"
-					></button>
+					>
+						<span
+							class="h-2 rounded-full transition-all border border-[#1e1714]/40 {activeIndex === i
+								? 'w-4 sm:w-5 bg-[#1e1714]'
+								: 'w-2 bg-[#1e1714]/20 hover:bg-[#1e1714]/40'}"
+						></span>
+					</button>
 				{/each}
 			</div>
 
@@ -196,8 +229,8 @@
 				type="button"
 				on:click={nextCard}
 				disabled={activeIndex >= cards.length - 1}
-				class="btn-bro w-7 h-7 flex items-center justify-center rounded-lg bg-[#fffdf8] text-[#1e1714] disabled:opacity-25 disabled:cursor-not-allowed font-bold"
-				title="Next Card (⌥→)"
+				class="btn-bro w-8 h-8 sm:w-8 sm:h-8 flex items-center justify-center rounded-lg bg-[#fffdf8] text-[#1e1714] disabled:opacity-25 disabled:cursor-not-allowed font-bold text-xs"
+				title="Next Card (⌥→ or swipe left)"
 				aria-label="Next Card"
 			>
 				→

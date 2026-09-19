@@ -122,14 +122,14 @@
 						<a
 							href={MAC_DMG.href}
 							download={MAC_DMG.filename}
-							class="btn-bro px-3.5 py-2 bg-[#fef08a] text-[#1e1714] rounded-xl font-mono text-xs font-black text-center flex items-center gap-1.5"
+							class="btn-bro px-3.5 py-2.5 sm:py-2 min-h-[44px] sm:min-h-0 bg-[#fef08a] text-[#1e1714] rounded-xl font-mono text-xs font-black text-center flex items-center gap-1.5"
 						>
 							<span>⬇️</span> Download Mac DMG
 						</a>
 						<button
 							type="button"
 							on:click={() => (isMacModalOpen = true)}
-							class="font-mono text-[11px] text-[#625854] hover:text-[#1e1714] underline underline-offset-2"
+							class="font-mono text-[11px] text-[#625854] hover:text-[#1e1714] underline underline-offset-2 py-2 px-1"
 						>
 							Shortcuts & info
 						</button>
@@ -159,7 +159,7 @@
 						<button
 							type="button"
 							on:click={() => (isSupportOpen = true)}
-							class="btn-bro px-3.5 py-2 bg-[#a7f3d0] hover:bg-[#6ee7b7] text-[#1e1714] rounded-xl font-mono text-xs font-black text-center flex items-center gap-1.5"
+							class="btn-bro px-3.5 py-2.5 sm:py-2 min-h-[44px] sm:min-h-0 bg-[#a7f3d0] hover:bg-[#6ee7b7] text-[#1e1714] rounded-xl font-mono text-xs font-black text-center flex items-center gap-1.5"
 						>
 							<span>✨</span> Unlock Suite — {PRICING.displayPrice}
 						</button>
@@ -208,11 +208,11 @@
 			<span class="text-[#625854]">In a world of Word, be Notepad</span>
 		</div>
 
-		<div class="flex items-center gap-3 select-none flex-wrap justify-center sm:justify-end">
+		<div class="flex items-center gap-2.5 select-none flex-wrap justify-center sm:justify-end">
 			<button
 				type="button"
 				on:click={() => (isMacModalOpen = true)}
-				class="hover:text-[#1e1714] transition-colors"
+				class="hover:text-[#1e1714] transition-colors py-2 px-1.5 min-h-[36px] flex items-center"
 			>
 				 Mac App
 			</button>
@@ -220,14 +220,14 @@
 			<button
 				type="button"
 				on:click={() => (isSupportOpen = true)}
-				class="btn-bro font-black text-[#1e1714] bg-[#fed7aa] px-2.5 py-1 rounded-lg text-xs"
+				class="btn-bro font-black text-[#1e1714] bg-[#fed7aa] px-3 py-1.5 rounded-lg text-xs min-h-[36px] flex items-center"
 			>
 				Cartridge {PRICING.displayPrice}
 			</button>
 			<span class="text-[#1e1714]/20">·</span>
-			<a href="/privacy" class="hover:text-[#1e1714] transition-colors">Privacy</a>
+			<a href="/privacy" class="hover:text-[#1e1714] transition-colors py-2 px-1.5 min-h-[36px] flex items-center">Privacy</a>
 			<span class="text-[#1e1714]/20">·</span>
-			<a href="/support" class="hover:text-[#1e1714] transition-colors">Support</a>
+			<a href="/support" class="hover:text-[#1e1714] transition-colors py-2 px-1.5 min-h-[36px] flex items-center">Support</a>
 		</div>
 	</footer>
 </div>

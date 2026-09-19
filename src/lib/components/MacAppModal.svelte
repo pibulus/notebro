@@ -24,7 +24,7 @@
 
 		<!-- Modal Box -->
 		<div
-			class="card-frame w-full max-w-lg bg-[#fffaf0] p-6 sm:p-8 relative z-10 border-3 border-[#1e1714] shadow-brutal-lg animate-fadeIn"
+			class="card-frame w-full max-w-lg bg-[#fffaf0] p-5 sm:p-8 relative z-10 border-3 border-[#1e1714] shadow-brutal-lg animate-fadeIn"
 			role="dialog"
 			aria-modal="true"
 		>
@@ -32,7 +32,7 @@
 			<button
 				type="button"
 				on:click={onClose}
-				class="btn-bro absolute top-4 right-4 w-8 h-8 rounded-full bg-[#fffdf8] text-sm font-bold flex items-center justify-center"
+				class="btn-bro absolute top-3.5 right-3.5 sm:top-4 sm:right-4 w-10 h-10 sm:w-8 sm:h-8 rounded-full bg-[#fffdf8] text-sm font-bold flex items-center justify-center"
 				aria-label="Close"
 			>
 				✕

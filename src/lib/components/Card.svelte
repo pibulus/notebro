@@ -90,31 +90,30 @@
 	function formattedDate(iso) {
 		if (!iso) return '';
 		const d = new Date(iso);
-		return d.toLocaleDateString(undefined, {
-			month: 'short',
-			day: 'numeric',
-			hour: '2-digit',
-			minute: '2-digit'
-		});
+		const month = d.toLocaleDateString(undefined, { month: 'short' });
+		const day = d.getDate();
+		const time = d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+		return { dateStr: `${month} ${day}`, timeStr: time };
 	}
+
+	$: dateObj = formattedDate(card.updatedAt);
 </script>
 
 <div
 	class="relative w-full max-w-2xl mx-auto flex flex-col card-frame transition-all duration-200"
 	style="border-top: 8px solid {activeColorObj.hex};"
 >
-	<!-- Metadata is ambient, actions are quiet. This bar previously held six
-	     chunky chips and out-shouted the note itself. -->
+	<!-- Metadata is ambient, actions are quiet. Touch targets min-h 32px for mobile thumbs. -->
 	<div
-		class="group flex items-center justify-between gap-3 px-4 sm:px-6 pt-3 pb-2 border-b-2 border-[#4a3f38]/10 bg-[#faf6ef] rounded-t-[1rem]"
+		class="group flex items-center justify-between gap-2 px-3 sm:px-6 pt-3 pb-2 border-b-2 border-[#4a3f38]/10 bg-[#faf6ef] rounded-t-[1rem]"
 	>
-		<div class="flex items-center gap-2.5 min-w-0">
+		<div class="flex items-center gap-2 min-w-0">
 			<span
 				class="w-2.5 h-2.5 shrink-0 rounded-full border border-[#4a3f38]/30"
 				style="background-color: {activeColorObj.hex};"
 			></span>
-			<span class="text-[11px] font-mono text-[#8a7d76] truncate">
-				{formattedDate(card.updatedAt)}
+			<span class="text-[11px] font-mono text-[#8a7d76] shrink-0">
+				{dateObj.dateStr}<span class="hidden sm:inline"> · {dateObj.timeStr}</span>
 			</span>
 			{#if card.pinned}
 				<span
@@ -126,7 +125,7 @@
 		</div>
 
 		<div
-			class="flex items-center gap-1 opacity-60 group-hover:opacity-100 focus-within:opacity-100 transition-opacity"
+			class="flex items-center gap-1 opacity-90 sm:opacity-60 sm:group-hover:opacity-100 focus-within:opacity-100 transition-opacity"
 		>
 			<span class="text-[11px] font-mono text-[#8a7d76] hidden sm:inline mr-1">
 				{words}{words === 1 ? ' word' : ' words'}
@@ -135,7 +134,7 @@
 			<button
 				type="button"
 				on:click={onTogglePin}
-				class="px-2 py-1 text-[11px] font-mono font-bold rounded-md text-[#625854] hover:bg-[#fef08a] hover:text-[#1e1714] transition-colors"
+				class="min-h-[32px] sm:min-h-0 px-2.5 py-1 sm:px-2 sm:py-1 text-[11px] font-mono font-bold rounded-md text-[#625854] hover:bg-[#fef08a] hover:text-[#1e1714] transition-colors flex items-center"
 				title={card.pinned ? 'Unpin card' : 'Pin to top of stack'}
 			>
 				{card.pinned ? 'Unpin' : 'Pin'}
@@ -144,7 +143,7 @@
 			<button
 				type="button"
 				on:click={onInsertTodo}
-				class="px-2 py-1 text-[11px] font-mono font-bold rounded-md text-[#625854] hover:bg-[#fef08a] hover:text-[#1e1714] transition-colors hidden sm:block"
+				class="min-h-[32px] sm:min-h-0 px-2.5 py-1 sm:px-2 sm:py-1 text-[11px] font-mono font-bold rounded-md text-[#625854] hover:bg-[#fef08a] hover:text-[#1e1714] transition-colors hidden sm:flex items-center"
 				title="Insert a checklist line"
 			>
 				Todo
@@ -153,10 +152,10 @@
 			<button
 				type="button"
 				on:click={handleCopy}
-				class="px-2 py-1 text-[11px] font-mono font-bold rounded-md text-[#625854] hover:bg-[#fef08a] hover:text-[#1e1714] transition-colors"
+				class="min-h-[32px] sm:min-h-0 px-2.5 py-1 sm:px-2 sm:py-1 text-[11px] font-mono font-bold rounded-md text-[#625854] hover:bg-[#fef08a] hover:text-[#1e1714] transition-colors flex items-center"
 				title="Copy card text"
 			>
-				{copied ? 'Copied' : 'Copy'}
+				{copied ? '✓ Copied' : 'Copy'}
 			</button>
 
 			{#if !isOnlyCard}
@@ -164,14 +163,14 @@
 					<button
 						type="button"
 						on:click={onDelete}
-						class="px-2 py-1 text-[11px] font-mono font-black rounded-md bg-[#fca5a5] text-[#7f1d1d]"
+						class="min-h-[32px] sm:min-h-0 px-2.5 py-1 text-[11px] font-mono font-black rounded-md bg-[#fca5a5] text-[#7f1d1d] flex items-center"
 					>
 						Discard?
 					</button>
 					<button
 						type="button"
 						on:click={() => (showDeleteConfirm = false)}
-						class="px-1.5 py-1 text-[11px] font-mono text-[#8a7d76] hover:text-[#1e1714]"
+						class="min-h-[32px] sm:min-h-0 px-2 py-1 text-[11px] font-mono text-[#8a7d76] hover:text-[#1e1714] flex items-center"
 					>
 						No
 					</button>
@@ -179,7 +178,7 @@
 					<button
 						type="button"
 						on:click={() => (showDeleteConfirm = true)}
-						class="px-2 py-1 text-[11px] font-mono font-bold rounded-md text-[#8a7d76] hover:bg-[#fca5a5]/40 hover:text-[#7f1d1d] transition-colors"
+						class="min-h-[32px] sm:min-h-0 px-2.5 py-1 sm:px-2 sm:py-1 text-[11px] font-mono font-bold rounded-md text-[#8a7d76] hover:bg-[#fca5a5]/40 hover:text-[#7f1d1d] transition-colors flex items-center"
 						title="Discard card"
 					>
 						Discard
@@ -189,15 +188,15 @@
 		</div>
 	</div>
 
-	<!-- Card Body / Blinking Cursor Editor -->
-	<div class="relative p-4 sm:p-7 flex-1 min-h-[360px] sm:min-h-[420px] bg-[#fffdf8] rounded-b-[1.25rem] sm:rounded-b-[1.5rem]">
+	<!-- Card Body / Blinking Cursor Editor (16px base font prevents iOS Safari auto-zoom) -->
+	<div class="relative p-4 sm:p-7 flex-1 min-h-[340px] sm:min-h-[420px] bg-[#fffdf8] rounded-b-[1.25rem] sm:rounded-b-[1.5rem]">
 		<textarea
 			bind:this={textareaRef}
 			value={card.content}
 			on:input={handleInput}
 			on:keydown={handleKeydown}
 			placeholder="Start writing... NoteBro is already holding your note."
-			class="paper-scroll w-full h-full min-h-[340px] sm:min-h-[390px] resize-none outline-none border-none bg-transparent font-mono text-[15px] sm:text-[16px] leading-[1.8] text-[#1e1714] placeholder-[#9b8f88]/60 focus:ring-0 selection:bg-[#fef08a]"
+			class="paper-scroll w-full h-full min-h-[320px] sm:min-h-[390px] resize-none outline-none border-none bg-transparent font-mono text-[16px] leading-[1.8] text-[#1e1714] placeholder-[#9b8f88]/60 focus:ring-0 selection:bg-[#fef08a]"
 			spellcheck="false"
 		></textarea>
 	</div>
