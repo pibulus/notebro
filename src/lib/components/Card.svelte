@@ -1,6 +1,7 @@
 <script>
 	import { onMount, tick } from 'svelte';
 	import { PASTEL_COLORS } from '$lib/storage.js';
+	import { playTypeKey } from '$lib/sound.js';
 
 	export let card;
 	export let onChange = (updated) => {};
@@ -39,6 +40,12 @@
 			content: e.target.value,
 			updatedAt: new Date().toISOString()
 		});
+	}
+
+	function handleKeydown(e) {
+		if (!e.metaKey && !e.ctrlKey && !e.altKey) {
+			playTypeKey(e.key);
+		}
 	}
 
 	async function handleCopy() {
@@ -188,6 +195,7 @@
 			bind:this={textareaRef}
 			value={card.content}
 			on:input={handleInput}
+			on:keydown={handleKeydown}
 			placeholder="Start writing... NoteBro is already holding your note."
 			class="paper-scroll w-full h-full min-h-[340px] sm:min-h-[390px] resize-none outline-none border-none bg-transparent font-mono text-[15px] sm:text-[16px] leading-[1.8] text-[#1e1714] placeholder-[#9b8f88]/60 focus:ring-0 selection:bg-[#fef08a]"
 			spellcheck="false"
