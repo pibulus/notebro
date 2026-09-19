@@ -5,6 +5,8 @@
 	export let card;
 	export let onChange = (updated) => {};
 	export let onDelete = () => {};
+	export let onTogglePin = () => {};
+	export let onInsertTodo = () => {};
 	export let isOnlyCard = false;
 
 	let textareaRef;
@@ -104,11 +106,32 @@
 			<span class="text-xs font-mono font-medium text-[#625854]">
 				{formattedDate(card.updatedAt)}
 			</span>
+
+			<!-- Pin Toggle -->
+			<button
+				type="button"
+				on:click={onTogglePin}
+				class="btn-bro px-2 py-0.5 text-[11px] font-mono font-bold rounded-md flex items-center gap-1 transition-all {card.pinned ? 'bg-[#fef08a] text-[#1e1714]' : 'bg-white text-[#9b8f88]'}"
+				title={card.pinned ? "Unpin card" : "Pin to top of stack"}
+			>
+				<span>📌</span>
+				<span class="hidden sm:inline">{card.pinned ? "Pinned" : "Pin"}</span>
+			</button>
+
+			<!-- Todo Checklist Insert -->
+			<button
+				type="button"
+				on:click={onInsertTodo}
+				class="btn-bro px-2 py-0.5 text-[11px] font-mono font-bold bg-white hover:bg-[#f5efe3] text-[#1e1714] rounded-md hidden sm:flex items-center gap-1"
+				title="Insert checklist checkbox"
+			>
+				<span>☑︎ Todo</span>
+			</button>
 		</div>
 
-		<div class="flex items-center gap-3">
+		<div class="flex items-center gap-2 sm:gap-3">
 			<span class="text-xs font-mono text-[#9b8f88] hidden sm:inline">
-				{words} {words === 1 ? 'word' : 'words'} · {chars} chars
+				{words} {words === 1 ? 'word' : 'words'}
 			</span>
 
 			<!-- Copy Button -->

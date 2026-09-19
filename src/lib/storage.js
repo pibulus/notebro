@@ -30,23 +30,44 @@ you opened it, the cursor is already here, and your note is already being taken.
 
 it's just a bro holding your thoughts. zero judgment. zero friction.`,
 		color: 'yellow',
+		pinned: true,
 		createdAt: new Date().toISOString(),
 		updatedAt: new Date().toISOString()
 	},
 	{
 		id: 'sample-scratch',
-		content: `ideas for the next release:
+		content: `ideas for the next release #ideas:
 - export notes directly to apple notes or obsidian
-- mac menu bar companion (already in the works!)
+- mac menu bar companion (already running natively!)
 - ⌥+Space quick capture popup
-- partykit live sync link so a friend can jump on the card
+- use #todo or #riff tags to filter your cards
 
-"weaponized simplicity — apps that do one thing with soul."`,
+"in a world of Word, be Notepad."`,
 		color: 'mint',
+		pinned: false,
 		createdAt: new Date(Date.now() - 3600000).toISOString(),
 		updatedAt: new Date(Date.now() - 3600000).toISOString()
 	}
 ];
+
+export function extractHashtags(text) {
+	if (!text) return [];
+	const matches = text.match(/#([a-zA-Z0-9_-]+)/g);
+	if (!matches) return [];
+	return Array.from(new Set(matches.map((m) => m.toLowerCase())));
+}
+
+export function getAllTags(cards) {
+	const tags = new Set();
+	for (const card of cards) {
+		const cardTags = extractHashtags(card.content);
+		for (const t of cardTags) {
+			tags.add(t);
+		}
+	}
+	return Array.from(tags).sort();
+}
+
 
 export function loadCards() {
 	if (typeof window === 'undefined') return DEFAULT_CARDS;
