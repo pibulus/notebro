@@ -1,4 +1,5 @@
 <script>
+	import { onMount } from 'svelte';
 	import { isSoundEnabled, toggleSound, playCardPop } from '$lib/sound.js';
 	import { PRICING } from '$lib/config/pricing.js';
 
@@ -10,6 +11,10 @@
 
 	let soundOn = true;
 	let menuOpen = false;
+
+	onMount(() => {
+		soundOn = isSoundEnabled();
+	});
 
 	function handleToggleSound() {
 		soundOn = !soundOn;

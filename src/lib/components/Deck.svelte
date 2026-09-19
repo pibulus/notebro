@@ -96,6 +96,13 @@
 		});
 	}
 
+	function jumpToCard(idx) {
+		if (idx !== activeIndex) {
+			playCardFlick();
+			onIndexUpdate(idx);
+		}
+	}
+
 	function handleColorSelect(colorId) {
 		if (!currentCard) return;
 		playColorTone(colorId);
@@ -107,7 +114,6 @@
 	}
 
 	function handleHighlightSelection(colorId) {
-		playColorTone(colorId);
 		if (cardComponentRef) {
 			cardComponentRef.highlightSelection(colorId);
 		}
@@ -176,7 +182,7 @@
 				{#each cards as _, i}
 					<button
 						type="button"
-						on:click={() => onIndexUpdate(i)}
+						on:click={() => jumpToCard(i)}
 						class="h-2.5 rounded-full transition-all border border-[#1e1714]/40 {activeIndex === i
 							? 'w-6 bg-[#1e1714]'
 							: 'w-2.5 bg-[#1e1714]/20 hover:bg-[#1e1714]/40'}"
