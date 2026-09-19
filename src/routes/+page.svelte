@@ -6,6 +6,7 @@
 	import ExportModal from '$lib/components/ExportModal.svelte';
 	import MacAppModal from '$lib/components/MacAppModal.svelte';
 	import SyncModal from '$lib/components/SyncModal.svelte';
+	import { PRICING } from '$lib/config/pricing.js';
 	import {
 		loadCards,
 		saveCards,
@@ -200,7 +201,7 @@
 			<div class="card-frame p-6 bg-[#fef08a] border-3 border-[#1e1714] flex flex-col sm:flex-row items-center justify-between gap-4">
 				<div class="text-left">
 					<div class="font-mono font-black text-lg text-[#1e1714]">
-						Digital Cartridge — $19 AUD
+						Digital Cartridge — {PRICING.displayPrice}
 					</div>
 					<div class="font-mono text-xs text-[#625854] mt-0.5">
 						Pay once. Keep it forever. No subscriptions. 100% private.
@@ -235,7 +236,7 @@
 				on:click={() => (isSupportOpen = true)}
 				class="text-[#b45309] hover:underline font-bold"
 			>
-				Cartridge $19 AUD
+				Cartridge {PRICING.displayPrice}
 			</button>
 		</div>
 	</footer>

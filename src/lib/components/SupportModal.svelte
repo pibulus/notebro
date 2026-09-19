@@ -1,4 +1,6 @@
 <script>
+	import { PRICING, checkoutUrl, checkoutReady, checkoutFallbackHref } from '$lib/config/pricing.js';
+
 	export let isOpen = false;
 	export let onClose = () => {};
 
@@ -43,7 +45,7 @@
 					Digital Cartridge Edition 📼
 				</div>
 				<h2 class="text-2xl font-mono font-black text-[#1e1714] tracking-tight">
-					NoteBro Suite — $19 AUD
+					NoteBro Suite — {PRICING.displayPrice}
 				</h2>
 				<p class="text-xs font-mono text-[#625854] mt-1">
 					Buy once. Own it forever. No SaaS rent.
@@ -86,23 +88,27 @@
 				<div class="text-center sm:text-left">
 					<div class="text-xs font-mono text-[#625854]">Attuned One-Time Price:</div>
 					<div class="text-xl font-mono font-black text-[#1e1714]">
-						$19 AUD <span class="text-xs font-normal text-[#9b8f88]">(~$14 USD)</span>
+						{PRICING.displayPrice} <span class="text-xs font-normal text-[#9b8f88]">({PRICING.approxUsdPrice})</span>
 					</div>
 				</div>
 
 				<a
-					href="https://square.link/u/notebro"
-					target="_blank"
-					rel="noopener noreferrer"
+					href={checkoutReady ? checkoutUrl : checkoutFallbackHref}
+					target={checkoutReady ? '_blank' : undefined}
+					rel={checkoutReady ? 'noopener noreferrer' : undefined}
 					class="btn-bro w-full sm:w-auto px-6 py-2.5 bg-[#a7f3d0] hover:bg-[#6ee7b7] text-[#1e1714] rounded-xl font-mono text-sm font-black text-center"
 				>
-					Get the Cartridge ✨
+					{checkoutReady ? 'Get the Cartridge ✨' : 'Reserve a Cartridge ✉️'}
 				</a>
 			</div>
 
 			<div class="mt-4 pt-3 border-t border-[#1e1714]/10 text-center">
 				<p class="text-[11px] font-mono text-[#9b8f88]">
-					Secured via Square. 30-day "no questions asked" refund if NoteBro isn't your bro.
+					{#if checkoutReady}
+						Secured via Square. 30-day "no questions asked" refund if NoteBro isn't your bro.
+					{:else}
+						Checkout opens shortly. A note now reserves one at this price.
+					{/if}
 				</p>
 			</div>
 		</div>

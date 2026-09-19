@@ -1,4 +1,6 @@
 <script>
+	import { PRICING } from '$lib/config/pricing.js';
+
 	let copied = false;
 
 	function copyEmail() {
@@ -132,7 +134,7 @@
 					Q: What is the Digital Cartridge model?
 				</h3>
 				<p class="text-[#625854]">
-					Instead of charging a monthly subscription ($5-$10/month forever), NoteBro is sold as an indie digital cartridge for a single one-time payment of $19 AUD (~$14 USD). Once you purchase it, you own it. It will never nag you for an upgrade or lock your notes behind a paywall.
+					Instead of charging a monthly subscription ($5-$10/month forever), NoteBro is sold as an indie digital cartridge for a single one-time payment of {PRICING.displayPrice} ({PRICING.approxUsdPrice}). Once you purchase it, you own it. It will never nag you for an upgrade or lock your notes behind a paywall.
 				</p>
 			</div>
 
