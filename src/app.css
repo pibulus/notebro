@@ -1,0 +1,79 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+	--paper-bg: #fffaf0;
+	--ink: #1e1714;
+	--ink-soft: #625854;
+	--card-bg: #ffffff;
+	--border-color: #1e1714;
+}
+
+body {
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+	background-color: var(--paper-bg);
+	color: var(--ink);
+	overflow-x: hidden;
+}
+
+/* Neo Toybrut Button Press */
+.btn-bro {
+	transition: all 0.12s cubic-bezier(0.4, 0, 0.2, 1);
+	border: 2px solid var(--border-color);
+	box-shadow: 2px 2px 0px var(--border-color);
+}
+
+.btn-bro:hover:not(:disabled) {
+	transform: translate(-1px, -1px);
+	box-shadow: 3px 3px 0px var(--border-color);
+}
+
+.btn-bro:active:not(:disabled) {
+	transform: translate(1px, 1px);
+	box-shadow: 1px 1px 0px var(--border-color);
+}
+
+/* Card Neo-Toybrut Frame */
+.card-frame {
+	border: 2.5px solid var(--border-color);
+	box-shadow: 4px 4px 0px var(--border-color);
+	border-radius: 1.25rem;
+	background: #ffffff;
+}
+
+@media (min-width: 640px) {
+	.card-frame {
+		box-shadow: 6px 6px 0px var(--border-color);
+		border-radius: 1.5rem;
+	}
+}
+
+/* Paper rule lines (optional subtle background) */
+.paper-lines {
+	background-image: repeating-linear-gradient(
+		transparent,
+		transparent 31px,
+		rgba(30, 23, 20, 0.05) 31px,
+		rgba(30, 23, 20, 0.05) 32px
+	);
+	background-attachment: local;
+	line-height: 32px;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+	width: 8px;
+	height: 8px;
+}
+::-webkit-scrollbar-track {
+	background: transparent;
+}
+::-webkit-scrollbar-thumb {
+	background: rgba(30, 23, 20, 0.2);
+	border-radius: 9999px;
+	border: 2px solid #fffaf0;
+}
+::-webkit-scrollbar-thumb:hover {
+	background: rgba(30, 23, 20, 0.4);
+}

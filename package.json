@@ -1,0 +1,24 @@
+{
+	"name": "notebro",
+	"private": true,
+	"version": "0.1.0",
+	"type": "module",
+	"scripts": {
+		"dev": "vite dev --port 9015 --host",
+		"build": "vite build",
+		"preview": "vite preview --port 9015"
+	},
+	"devDependencies": {
+		"@sveltejs/adapter-node": "^5.2.11",
+		"@sveltejs/kit": "^2.16.0",
+		"@sveltejs/vite-plugin-svelte": "^5.0.0",
+		"autoprefixer": "^10.4.20",
+		"postcss": "^8.4.49",
+		"svelte": "^5.0.0",
+		"tailwindcss": "^3.4.17",
+		"vite": "^6.0.0"
+	},
+	"dependencies": {
+		"daisyui": "^4.12.23"
+	}
+}

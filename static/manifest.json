@@ -1,0 +1,17 @@
+{
+	"name": "NoteBro",
+	"short_name": "NoteBro",
+	"start_url": "/",
+	"display": "standalone",
+	"background_color": "#fffaf0",
+	"theme_color": "#fffaf0",
+	"description": "A notes app that's already taking a note when you open it. No headers, no folders, just a cursor.",
+	"icons": [
+		{
+			"src": "data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%23fef08a%22 stroke=%22%231e1714%22 stroke-width=%226%22/><text x=%2250%22 y=%2268%22 font-size=%2254%22 text-anchor=%22middle%22>📝</text></svg>",
+			"sizes": "any",
+			"type": "image/svg+xml",
+			"purpose": "any maskable"
+		}
+	]
+}
