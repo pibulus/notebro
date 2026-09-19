@@ -1,9 +1,19 @@
 <script>
+	import { isSoundEnabled, toggleSound, playCardPop } from '$lib/sound.js';
+
 	export let onNewCard = () => {};
 	export let onOpenExport = () => {};
 	export let onOpenSync = () => {};
 	export let onOpenSupport = () => {};
 	export let onOpenMacModal = () => {};
+
+	let soundOn = true;
+
+	function handleToggleSound() {
+		soundOn = !soundOn;
+		toggleSound(soundOn);
+		if (soundOn) playCardPop();
+	}
 </script>
 
 <header class="w-full max-w-2xl mx-auto flex items-center justify-between py-4 px-3 sm:px-0 mb-2">
@@ -46,6 +56,17 @@
 		>
 			<span>⚡️</span>
 			<span class="hidden sm:inline">Sync</span>
+		</button>
+
+		<!-- Sound Toggle Button -->
+		<button
+			type="button"
+			on:click={handleToggleSound}
+			class="btn-bro px-2 py-1.5 text-xs font-mono font-bold bg-white text-[#1e1714] rounded-xl flex items-center justify-center"
+			title={soundOn ? 'Mute synthesized sound effects' : 'Enable synthesized sound effects'}
+			aria-label="Toggle sound"
+		>
+			<span>{soundOn ? '🔊' : '🔇'}</span>
 		</button>
 
 		<!-- Export Button -->

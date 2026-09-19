@@ -78,19 +78,13 @@
 
 	<!-- Main Deck Area (Live Instant Scratchpad) -->
 	<section class="flex-1 flex items-center justify-center my-2 sm:my-4 w-full">
-		{#if loaded}
-			<Deck
-				bind:this={deckComponentRef}
-				{cards}
-				{activeIndex}
-				onCardsUpdate={handleCardsUpdate}
-				onIndexUpdate={handleIndexUpdate}
-			/>
-		{:else}
-			<div class="card-frame p-8 text-center font-mono text-xs text-[#625854]">
-				Loading NoteBro...
-			</div>
-		{/if}
+		<Deck
+			bind:this={deckComponentRef}
+			{cards}
+			{activeIndex}
+			onCardsUpdate={handleCardsUpdate}
+			onIndexUpdate={handleIndexUpdate}
+		/>
 	</section>
 
 	<!-- Website Showcase & Manifesto (The notebro.app Experience) -->
@@ -139,7 +133,12 @@
 				<!-- Mac App Card -->
 				<div class="card-frame p-5 bg-white flex flex-col justify-between">
 					<div>
-						<div class="text-2xl mb-2"></div>
+						<div class="flex items-center justify-between mb-2">
+							<span class="text-2xl"></span>
+							<span class="text-[9px] uppercase font-bold tracking-wider bg-[#bae6fd] text-[#0369a1] px-1.5 py-0.5 rounded border border-[#0369a1]/30">
+								App Store Ready
+							</span>
+						</div>
 						<h4 class="font-black text-sm text-[#1e1714] mb-1">NoteBro for Mac</h4>
 						<p class="text-[11px] text-[#625854] leading-relaxed mb-4">
 							Lives in your menu bar. Hit <code>⌥Space</code> anywhere, type, close. 2.4MB native Swift binary, zero battery drain.
@@ -219,7 +218,7 @@
 	{/if}
 
 	<!-- Footer -->
-	<footer class="w-full max-w-2xl mx-auto mt-6 pt-4 border-t border-[#1e1714]/10 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs font-mono text-[#9b8f88]">
+	<footer class="w-full max-w-2xl mx-auto mt-6 pt-4 border-t border-[#1e1714]/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-mono text-[#9b8f88]">
 		<div class="flex items-center gap-2">
 			<span>📝 NoteBro</span>
 			<span>·</span>
@@ -227,7 +226,10 @@
 		</div>
 
 		<div class="flex items-center gap-3">
-			<span class="hidden sm:inline">Shortcuts: <code>⌥←</code> / <code>⌥→</code> flick · <code>⌘K</code> new</span>
+			<a href="/privacy" class="hover:underline text-[#625854]">Privacy</a>
+			<span>·</span>
+			<a href="/support" class="hover:underline text-[#625854]">Support</a>
+			<span>·</span>
 			<button
 				type="button"
 				on:click={() => (isSupportOpen = true)}
