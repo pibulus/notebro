@@ -147,7 +147,7 @@
 					</div>
 					<div class="flex flex-col gap-1.5">
 						<a
-							href="/downloads/NoteBro-1.0.0.dmg"
+							href="/downloads/NoteBro-1.1.0.dmg"
 							download
 							class="btn-bro w-full py-1.5 px-3 bg-[#fef08a] text-[#1e1714] rounded-lg text-xs font-black text-center flex items-center justify-center gap-1.5"
 						>
