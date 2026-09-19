@@ -131,13 +131,22 @@
 							Lives in your menu bar. Hit <code>⌥Space</code> anywhere, type, close. 2.4MB native Swift binary, zero battery drain.
 						</p>
 					</div>
-					<button
-						type="button"
-						on:click={() => (isMacModalOpen = true)}
-						class="btn-bro w-full py-1.5 px-3 bg-[#bae6fd] text-[#1e1714] rounded-lg text-xs font-bold text-center"
-					>
-						Get Mac App
-					</button>
+					<div class="flex flex-col gap-1.5">
+						<a
+							href="/downloads/NoteBro-1.0.0.dmg"
+							download
+							class="btn-bro w-full py-1.5 px-3 bg-[#fef08a] text-[#1e1714] rounded-lg text-xs font-black text-center flex items-center justify-center gap-1.5"
+						>
+							<span>⬇️</span> Download .dmg
+						</a>
+						<button
+							type="button"
+							on:click={() => (isMacModalOpen = true)}
+							class="w-full py-1 text-[11px] text-[#625854] hover:text-[#1e1714] font-mono underline text-center cursor-pointer"
+						>
+							View features & shortcuts
+						</button>
+					</div>
 				</div>
 
 				<!-- Web PWA Card -->

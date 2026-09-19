@@ -3,6 +3,7 @@
 	import Card from './Card.svelte';
 	import HighlighterBar from './HighlighterBar.svelte';
 	import { generateCardId, extractHashtags, getAllTags } from '$lib/storage.js';
+	import { playCardFlick, playCardPop, playCheckmark, playColorTone } from '$lib/sound.js';
 
 	export let cards = [];
 	export let activeIndex = 0;
@@ -32,17 +33,20 @@
 
 	function prevCard() {
 		if (currentFilteredPos > 0) {
+			playCardFlick();
 			onIndexUpdate(activeIndices[currentFilteredPos - 1]);
 		}
 	}
 
 	function nextCard() {
 		if (currentFilteredPos < activeIndices.length - 1) {
+			playCardFlick();
 			onIndexUpdate(activeIndices[currentFilteredPos + 1]);
 		}
 	}
 
 	export function addCard() {
+		playCardPop();
 		const newCard = {
 			id: generateCardId(),
 			content: selectedTag ? `${selectedTag} ` : '',
@@ -72,6 +76,7 @@
 
 	function handleTogglePin() {
 		if (!currentCard) return;
+		playCheckmark();
 		const wasPinned = !currentCard.pinned;
 		const updatedCard = { ...currentCard, pinned: wasPinned, updatedAt: new Date().toISOString() };
 		let updatedCards = [...cards];
@@ -92,6 +97,7 @@
 
 	function handleInsertTodo() {
 		if (!currentCard) return;
+		playCheckmark();
 		let content = currentCard.content;
 		if (!content) {
 			content = '- [ ] ';
@@ -109,6 +115,7 @@
 
 	function handleColorSelect(colorId) {
 		if (!currentCard) return;
+		playColorTone(colorId);
 		handleCardChange({
 			...currentCard,
 			color: colorId,
@@ -117,6 +124,7 @@
 	}
 
 	function handleHighlightSelection(colorId) {
+		playColorTone(colorId);
 		if (cardComponentRef) {
 			cardComponentRef.highlightSelection(colorId);
 		}
