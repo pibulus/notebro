@@ -43,7 +43,7 @@
 				NoteBro
 			</h1>
 			<p class="text-[11px] font-mono text-[#625854] leading-tight truncate">
-				Quick notes, nothing else.
+				Your note bro. Always there.
 			</p>
 		</div>
 	</div>

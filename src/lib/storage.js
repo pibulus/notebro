@@ -26,7 +26,7 @@ Everything saves itself.`,
 	},
 	{
 		id: 'sample-scratch',
-		content: `groceries #todo
+		content: `groceries
 - [ ] limes
 - [ ] good coffee`,
 		color: 'mint',

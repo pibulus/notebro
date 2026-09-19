@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import Card from './Card.svelte';
 	import HighlighterBar from './HighlighterBar.svelte';
-	import { generateCardId, extractHashtags, getAllTags } from '$lib/storage.js';
+	import { generateCardId } from '$lib/storage.js';
 	import { playCardFlick, playCardPop, playCheckmark, playColorTone } from '$lib/sound.js';
 
 	export let cards = [];
@@ -11,37 +11,20 @@
 	export let onIndexUpdate = (idx) => {};
 
 	let cardComponentRef;
-	let selectedTag = null;
-
-	$: allTags = getAllTags(cards);
-
-	// Filter indices according to selected tag
-	$: activeIndices = selectedTag
-		? cards
-				.map((c, i) => (extractHashtags(c.content).includes(selectedTag) ? i : -1))
-				.filter((i) => i !== -1)
-		: cards.map((_, i) => i);
-
-	$: currentFilteredPos = activeIndices.indexOf(activeIndex);
-
-	// Ensure activeIndex is valid within filtered list
-	$: if (selectedTag && currentFilteredPos === -1 && activeIndices.length > 0) {
-		onIndexUpdate(activeIndices[0]);
-	}
 
 	$: currentCard = cards[activeIndex] || cards[0];
 
 	function prevCard() {
-		if (currentFilteredPos > 0) {
+		if (activeIndex > 0) {
 			playCardFlick();
-			onIndexUpdate(activeIndices[currentFilteredPos - 1]);
+			onIndexUpdate(activeIndex - 1);
 		}
 	}
 
 	function nextCard() {
-		if (currentFilteredPos < activeIndices.length - 1) {
+		if (activeIndex < cards.length - 1) {
 			playCardFlick();
-			onIndexUpdate(activeIndices[currentFilteredPos + 1]);
+			onIndexUpdate(activeIndex + 1);
 		}
 	}
 
@@ -49,7 +32,7 @@
 		playCardPop();
 		const newCard = {
 			id: generateCardId(),
-			content: selectedTag ? `${selectedTag} ` : '',
+			content: '',
 			color: 'yellow',
 			pinned: false,
 			createdAt: new Date().toISOString(),
@@ -153,33 +136,6 @@
 </script>
 
 <div class="w-full flex flex-col items-center">
-	<!-- Hashtag Filter Pills (Instant tag chips) -->
-	{#if allTags.length > 0}
-		<div class="w-full max-w-2xl flex items-center gap-3 mb-2 px-2 sm:px-0 overflow-x-auto no-scrollbar py-0.5">
-			<button
-				type="button"
-				on:click={() => (selectedTag = null)}
-				class="shrink-0 font-mono text-[11px] tracking-wide transition-colors {selectedTag === null
-					? 'text-[#1e1714] font-black underline underline-offset-4 decoration-2 decoration-[#fbbf24]'
-					: 'text-[#8a7d76] hover:text-[#1e1714]'}"
-			>
-				All {cards.length}
-			</button>
-
-			{#each allTags as tag}
-				<button
-					type="button"
-					on:click={() => (selectedTag = selectedTag === tag ? null : tag)}
-					class="shrink-0 font-mono text-[11px] tracking-wide transition-colors {selectedTag === tag
-						? 'text-[#1e1714] font-black underline underline-offset-4 decoration-2 decoration-[#34d399]'
-						: 'text-[#8a7d76] hover:text-[#1e1714]'}"
-				>
-					{tag}
-				</button>
-			{/each}
-		</div>
-	{/if}
-
 	<!-- The Active Card -->
 	{#if currentCard}
 		{#key currentCard.id}
@@ -195,24 +151,51 @@
 		{/key}
 	{/if}
 
-	<!-- Markers + pager: the only chrome below the card. -->
-	<div class="w-full max-w-2xl mt-4 px-2 sm:px-0 flex items-center justify-between gap-4">
+	<!-- Dock below the card: Marker tray (left) + Card Pager (right) -->
+	<div class="w-full max-w-2xl mt-4 px-2 sm:px-0 flex items-center justify-between gap-3 flex-wrap sm:flex-nowrap">
 		<HighlighterBar
 			activeColor={currentCard ? currentCard.color : 'yellow'}
 			onSelectColor={handleColorSelect}
 			onHighlightSelection={handleHighlightSelection}
 		/>
 
-		<div class="flex items-center justify-end gap-1.5 flex-wrap">
-		{#each activeIndices as originalIdx, i}
+		<!-- Tactile Pager Controls -->
+		<div class="flex items-center gap-1.5 font-mono text-xs select-none">
 			<button
 				type="button"
-				on:click={() => onIndexUpdate(originalIdx)}
-				class="h-2 rounded-full transition-all border border-[#1e1714]/40 {activeIndex === originalIdx ? 'w-6 bg-[#1e1714]' : 'w-2 bg-[#1e1714]/20'}"
-				title="Jump to Card {i + 1}"
-				aria-label="Jump to card {i + 1}"
-			></button>
-			{/each}
+				on:click={prevCard}
+				disabled={activeIndex <= 0}
+				class="btn-bro w-7 h-7 flex items-center justify-center rounded-lg bg-[#fffdf8] text-[#1e1714] disabled:opacity-25 disabled:cursor-not-allowed font-bold"
+				title="Previous Card (⌥←)"
+				aria-label="Previous Card"
+			>
+				←
+			</button>
+
+			<div class="flex items-center gap-1.5 px-1.5">
+				{#each cards as _, i}
+					<button
+						type="button"
+						on:click={() => onIndexUpdate(i)}
+						class="h-2.5 rounded-full transition-all border border-[#1e1714]/40 {activeIndex === i
+							? 'w-6 bg-[#1e1714]'
+							: 'w-2.5 bg-[#1e1714]/20 hover:bg-[#1e1714]/40'}"
+						title="Card {i + 1} of {cards.length}"
+						aria-label="Jump to card {i + 1}"
+					></button>
+				{/each}
+			</div>
+
+			<button
+				type="button"
+				on:click={nextCard}
+				disabled={activeIndex >= cards.length - 1}
+				class="btn-bro w-7 h-7 flex items-center justify-center rounded-lg bg-[#fffdf8] text-[#1e1714] disabled:opacity-25 disabled:cursor-not-allowed font-bold"
+				title="Next Card (⌥→)"
+				aria-label="Next Card"
+			>
+				→
+			</button>
 		</div>
 	</div>
 </div>
