@@ -1,0 +1,39 @@
+name: NoteBro
+slug: notebro
+app_type: mac-and-web-app
+audience: neurodivergent creators, ADHD thinkers, writers, and hackers exhausted by note-taking ceremony
+problem: 'Every notes app demands an upfront cognitive tax—asking for a title, folder, template, or database before you can write a single word.'
+promise: '"In a world of Word, be Notepad." NoteBro is already taking your note the instant you open it. Zero folders, zero headers, just a blinking cursor.'
+cta: 'Grab NoteBro for Mac (.dmg) or use the live index deck at https://notebro.app ($19 AUD digital cartridge, pay once, keep forever).'
+differentiators:
+  - 'Instant Blinking Cursor: Option+Space drops down the card deck from your Mac menu bar with the cursor already waiting.'
+  - 'Index Card Stack: Flick between ideas with ⌥←/⌥→ or ⌘[/⌘], keeping thoughts bite-sized and digestible.'
+  - '5 Tactile Pastel Markers: Highlight text or tint cards with pure synthesized WebAudio clicks and pops (0 KB audio files).'
+  - 'Automatic #hashtag chips: Tag cards freely inline; instant filter pills organize without folder trees.'
+  - 'Digital Cartridge model: $19 AUD one-time price. Zero subscription traps, zero data harvesting, runs 100% locally.'
+  - 'Native Mac Swift Binary: 400KB lightweight menu bar companion compiled for Apple Silicon with zero background battery drain.'
+proof_points:
+  - '2.4MB / 400KB native Swift binary signed with Apple Developer ID.'
+  - 'Full trinity suite: native Mac menu bar app + SvelteKit PWA web deck + Chrome quick-capture extension.'
+  - 'One-click Markdown export to Desktop or clipboard.'
+  - 'Offline-first: saves automatically to local JSON with instant rollback.'
+objections:
+  - 'Isn''t Apple Notes or TextEdit enough? Apple Notes forces titles into iCloud silos; TextEdit forces a save dialogue before you write.'
+keywords:
+  seed:
+    - NoteBro
+    - notebro
+    - mac notes app
+    - minimalist scratchpad
+    - adhd notes
+    - pastel brutalism
+  audience:
+    - neurodivergent coders
+    - writers tired of Notion
+    - quick scratchpad users
+  intent:
+    - fast notes mac menu bar
+    - zero friction thought capture
+    - offline index card deck
+manual_notes:
+  - Weaponized simplicity: apps that do ONE thing perfectly.
