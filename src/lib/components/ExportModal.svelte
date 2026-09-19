@@ -72,7 +72,7 @@
 			<button
 				type="button"
 				on:click={onClose}
-				class="btn-bro absolute top-4 right-4 w-8 h-8 rounded-full bg-white text-sm font-bold flex items-center justify-center"
+				class="btn-bro absolute top-4 right-4 w-8 h-8 rounded-full bg-[#fffdf8] text-sm font-bold flex items-center justify-center"
 				aria-label="Close"
 			>
 				✕
@@ -90,7 +90,7 @@
 				<button
 					type="button"
 					on:click={copyMarkdown}
-					class="btn-bro w-full py-2.5 px-4 bg-white hover:bg-[#f5efe3] text-[#1e1714] rounded-xl font-mono text-xs sm:text-sm font-bold flex items-center justify-between"
+					class="btn-bro w-full py-2.5 px-4 bg-[#fffdf8] hover:bg-[#f5efe3] text-[#1e1714] rounded-xl font-mono text-xs sm:text-sm font-bold flex items-center justify-between"
 				>
 					<span>📋 Copy All Cards as Markdown</span>
 					{#if copied}
@@ -121,7 +121,7 @@
 				</button>
 			</div>
 
-			<div class="p-3 bg-white rounded-xl border-2 border-[#1e1714]/20 text-[11px] font-mono text-[#625854]">
+			<div class="p-3 bg-[#fffdf8] rounded-xl border-2 border-[#1e1714]/20 text-[11px] font-mono text-[#625854]">
 				💡 <strong>Pro-tip:</strong> You can drop these Markdown files straight into Obsidian, Apple Notes, or keep them as plain text on your hard drive.
 			</div>
 		</div>

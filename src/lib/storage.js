@@ -15,20 +15,10 @@ export const PASTEL_COLORS = [
 export const DEFAULT_CARDS = [
 	{
 		id: 'welcome-card',
-		content: `yo! welcome to NoteBro 📝
+		content: `The cursor is already here. Start typing.
 
-no title fields.
-no "pick a folder".
-no notion workspace database matrix.
-
-you opened it, the cursor is already here, and your note is already being taken.
-
-• flick left and right with [ < ] [ > ] or arrows to jump between cards
-• tap any pastel highlighter below to mark up your text
-• hit "+" anytime to pull a fresh index card from the stack
-• close the tab or popover whenever you want — it's already saved locally
-
-it's just a bro holding your thoughts. zero judgment. zero friction.`,
+Arrows flick between cards. Tap a marker to colour one.
+Everything saves itself.`,
 		color: 'yellow',
 		pinned: true,
 		createdAt: new Date().toISOString(),
@@ -36,13 +26,9 @@ it's just a bro holding your thoughts. zero judgment. zero friction.`,
 	},
 	{
 		id: 'sample-scratch',
-		content: `ideas for the next release #ideas:
-- export notes directly to apple notes or obsidian
-- mac menu bar companion (already running natively!)
-- ⌥+Space quick capture popup
-- use #todo or #riff tags to filter your cards
-
-"in a world of Word, be Notepad."`,
+		content: `groceries #todo
+- [ ] limes
+- [ ] good coffee`,
 		color: 'mint',
 		pinned: false,
 		createdAt: new Date(Date.now() - 3600000).toISOString(),

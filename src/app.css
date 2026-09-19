@@ -6,7 +6,7 @@
 	--paper-bg: #fffaf0;
 	--ink: #1e1714;
 	--ink-soft: #625854;
-	--card-bg: #ffffff;
+	--card-bg: #fbf1e4;
 	--border-color: #1e1714;
 }
 
@@ -39,7 +39,16 @@ body {
 	border: 2.5px solid var(--border-color);
 	box-shadow: 4px 4px 0px var(--border-color);
 	border-radius: 1.25rem;
-	background: #ffffff;
+	background: var(--card-bg);
+}
+
+/* Hide scrollbar on horizontally-scrollable mobile chip strips (header/toolbar overflow) */
+.no-scrollbar {
+	scrollbar-width: none;
+	-ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+	display: none;
 }
 
 @media (min-width: 640px) {
@@ -76,4 +85,15 @@ body {
 }
 ::-webkit-scrollbar-thumb:hover {
 	background: rgba(30, 23, 20, 0.4);
+}
+
+/* The note editor showed a live scrollbar track down its right edge, which is
+   the opposite of "just a cursor on paper". Hidden, not disabled — the textarea
+   still scrolls by keyboard, wheel and touch. */
+.paper-scroll {
+	scrollbar-width: none;
+	-ms-overflow-style: none;
+}
+.paper-scroll::-webkit-scrollbar {
+	display: none;
 }

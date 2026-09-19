@@ -32,7 +32,7 @@
 			<button
 				type="button"
 				on:click={onClose}
-				class="btn-bro absolute top-4 right-4 w-8 h-8 rounded-full bg-white text-sm font-bold flex items-center justify-center"
+				class="btn-bro absolute top-4 right-4 w-8 h-8 rounded-full bg-[#fffdf8] text-sm font-bold flex items-center justify-center"
 				aria-label="Close"
 			>
 				✕
@@ -50,7 +50,7 @@
 				</p>
 			</div>
 
-			<div class="space-y-3 font-mono text-xs sm:text-[13px] text-[#1e1714] bg-white p-4 rounded-xl border-2 border-[#1e1714] shadow-brutal-sm mb-5">
+			<div class="space-y-3 font-mono text-xs sm:text-[13px] text-[#1e1714] bg-[#fffdf8] p-4 rounded-xl border-2 border-[#1e1714] shadow-brutal-sm mb-5">
 				<p>
 					Every other Mac notes app forces you through a ritual: launch app, open window, name file, choose folder.
 				</p>

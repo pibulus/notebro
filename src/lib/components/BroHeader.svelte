@@ -1,5 +1,6 @@
 <script>
 	import { isSoundEnabled, toggleSound, playCardPop } from '$lib/sound.js';
+	import { PRICING } from '$lib/config/pricing.js';
 
 	export let onNewCard = () => {};
 	export let onOpenExport = () => {};
@@ -8,97 +9,128 @@
 	export let onOpenMacModal = () => {};
 
 	let soundOn = true;
+	let menuOpen = false;
 
 	function handleToggleSound() {
 		soundOn = !soundOn;
 		toggleSound(soundOn);
 		if (soundOn) playCardPop();
 	}
+
+	function run(fn) {
+		menuOpen = false;
+		fn();
+	}
+
+	function handleWindowKeydown(e) {
+		if (e.key === 'Escape') menuOpen = false;
+	}
 </script>
 
-<header class="w-full max-w-2xl mx-auto flex items-center justify-between py-4 px-3 sm:px-0 mb-2">
-	<!-- Logo / Title -->
-	<div class="flex items-center gap-2.5">
-		<div class="w-9 h-9 rounded-xl bg-[#fef08a] border-2 border-[#1e1714] shadow-brutal-sm flex items-center justify-center text-lg select-none">
+<svelte:window on:keydown={handleWindowKeydown} />
+
+<!-- One row. An app whose whole pitch is "no setup ritual" cannot greet people
+     with five competing buttons — everything secondary lives behind the menu. -->
+<header class="w-full max-w-2xl mx-auto flex items-center justify-between gap-3 py-4 px-3 sm:px-0 mb-1">
+	<div class="flex items-center gap-2.5 min-w-0">
+		<div
+			class="w-9 h-9 shrink-0 rounded-xl bg-[#fef08a] border-2 border-[#4a3f38] shadow-brutal-sm flex items-center justify-center text-lg select-none"
+		>
 			📝
 		</div>
-		<div>
-			<h1 class="font-mono font-black text-xl tracking-tight text-[#1e1714] flex items-center gap-1.5 leading-none">
+		<div class="min-w-0">
+			<h1 class="font-mono font-black text-xl tracking-tight text-[#1e1714] leading-none">
 				NoteBro
-				<span class="text-[10px] uppercase font-bold tracking-widest bg-[#a7f3d0] text-[#065f46] px-1.5 py-0.5 rounded border border-[#1e1714]/30">
-					v1.0
-				</span>
 			</h1>
-			<p class="text-[11px] font-mono text-[#625854] leading-tight">
-				Your note bro. Always there.
+			<p class="text-[11px] font-mono text-[#625854] leading-tight truncate">
+				Quick notes, nothing else.
 			</p>
 		</div>
 	</div>
 
-	<!-- Top Right Action Controls -->
-	<div class="flex items-center gap-2">
-		<!-- Mac App Badge -->
-		<button
-			type="button"
-			on:click={onOpenMacModal}
-			class="btn-bro hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-mono font-bold bg-[#bae6fd] text-[#1e1714] rounded-xl"
-			title="NoteBro for Mac Menu Bar"
-		>
-			<span> Mac App</span>
-		</button>
-
-		<!-- Sync Button -->
-		<button
-			type="button"
-			on:click={onOpenSync}
-			class="btn-bro px-2.5 py-1.5 text-xs font-mono font-bold bg-white text-[#1e1714] rounded-xl flex items-center gap-1"
-			title="Sync cards across devices via Pi Vault"
-		>
-			<span>⚡️</span>
-			<span class="hidden sm:inline">Sync</span>
-		</button>
-
-		<!-- Sound Toggle Button -->
-		<button
-			type="button"
-			on:click={handleToggleSound}
-			class="btn-bro px-2 py-1.5 text-xs font-mono font-bold bg-white text-[#1e1714] rounded-xl flex items-center justify-center"
-			title={soundOn ? 'Mute synthesized sound effects' : 'Enable synthesized sound effects'}
-			aria-label="Toggle sound"
-		>
-			<span>{soundOn ? '🔊' : '🔇'}</span>
-		</button>
-
-		<!-- Export Button -->
-		<button
-			type="button"
-			on:click={onOpenExport}
-			class="btn-bro px-2.5 py-1.5 text-xs font-mono font-bold bg-white text-[#1e1714] rounded-xl flex items-center gap-1"
-			title="Export or backup cards"
-		>
-			<span>📦</span>
-			<span class="hidden sm:inline">Export</span>
-		</button>
-
-		<!-- Support / Buy Cartridge -->
-		<button
-			type="button"
-			on:click={onOpenSupport}
-			class="btn-bro px-3 py-1.5 text-xs font-mono font-black bg-[#fed7aa] text-[#1e1714] rounded-xl hover:bg-[#fdba74]"
-			title="Support NoteBro & get the Mac suite"
-		>
-			$19 AUD
-		</button>
-
-		<!-- Big New Card Button -->
+	<div class="flex items-center gap-2 shrink-0">
 		<button
 			type="button"
 			on:click={onNewCard}
-			class="btn-bro px-3.5 py-1.5 text-xs sm:text-sm font-mono font-black bg-[#a7f3d0] text-[#1e1714] rounded-xl hover:bg-[#6ee7b7] flex items-center gap-1"
+			class="btn-bro px-3.5 py-1.5 text-xs sm:text-sm font-mono font-black bg-[#a7f3d0] text-[#1e1714] rounded-xl hover:bg-[#6ee7b7]"
 			title="Pull a fresh card (⌘K)"
 		>
-			<span>+</span>
-			<span>New Card</span>
+			+ New Card
 		</button>
+
+		<div class="relative">
+			<button
+				type="button"
+				on:click={() => (menuOpen = !menuOpen)}
+				class="btn-bro w-9 h-9 flex items-center justify-center text-base font-mono font-black bg-[#fbf1e4] text-[#1e1714] rounded-xl"
+				aria-haspopup="true"
+				aria-expanded={menuOpen}
+				aria-label="More"
+				title="More"
+			>
+				···
+			</button>
+
+			{#if menuOpen}
+				<!-- Scrim closes the menu without a document-level click listener. -->
+				<button
+					type="button"
+					class="fixed inset-0 z-40 cursor-default"
+					on:click={() => (menuOpen = false)}
+					tabindex="-1"
+					aria-label="Close menu"
+				></button>
+
+				<div
+					class="absolute right-0 top-11 z-50 w-52 rounded-xl border-2 border-[#4a3f38] bg-[#fffaf0] shadow-brutal-sm overflow-hidden font-mono text-xs"
+					role="menu"
+				>
+					<button
+						type="button"
+						role="menuitem"
+						on:click={() => run(onOpenSync)}
+						class="w-full text-left px-3.5 py-2.5 font-bold text-[#1e1714] hover:bg-[#fef08a] transition-colors"
+					>
+						Vault Sync
+					</button>
+					<button
+						type="button"
+						role="menuitem"
+						on:click={() => run(onOpenExport)}
+						class="w-full text-left px-3.5 py-2.5 font-bold text-[#1e1714] hover:bg-[#fef08a] transition-colors"
+					>
+						Export Markdown
+					</button>
+					<button
+						type="button"
+						role="menuitem"
+						on:click={() => run(onOpenMacModal)}
+						class="w-full text-left px-3.5 py-2.5 font-bold text-[#1e1714] hover:bg-[#fef08a] transition-colors"
+					>
+						NoteBro for Mac
+					</button>
+
+					<div class="border-t-2 border-[#4a3f38]/15"></div>
+
+					<button
+						type="button"
+						role="menuitem"
+						on:click={handleToggleSound}
+						class="w-full text-left px-3.5 py-2.5 font-bold text-[#625854] hover:bg-[#fef08a] hover:text-[#1e1714] transition-colors flex items-center justify-between"
+					>
+						<span>Sound</span>
+						<span class="text-[10px] uppercase tracking-wider">{soundOn ? 'On' : 'Off'}</span>
+					</button>
+					<button
+						type="button"
+						role="menuitem"
+						on:click={() => run(onOpenSupport)}
+						class="w-full text-left px-3.5 py-2.5 font-black text-[#1e1714] bg-[#fed7aa]/50 hover:bg-[#fed7aa] transition-colors"
+					>
+						Cartridge — {PRICING.displayPrice}
+					</button>
+				</div>
+			{/if}
+		</div>
 	</div>
 </header>

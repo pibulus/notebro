@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>NoteBro OG card</title>
+		<style>
+			/* Source of truth for static/og-image.png (1200x630).
+			   Regenerate: see tools/README.md — render this at 1200x630 and save
+			   over static/og-image.png, then bump the build stamp if needed.
+
+			   The previous card was generated through a shell string, so "$19"
+			   expanded to nothing and shipped as "Cartridge  AUD" on every share,
+			   and ⌥ fell back to a missing glyph. Keeping it as HTML means the
+			   browser does the typesetting and nothing eats the characters. */
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+			:root {
+				--paper: #fffaf0;
+				--cream: #fbf1e4;
+				--ink: #1e1714;
+				--ink-soft: #625854;
+				--sepia: #4a3f38;
+				--yellow: #fef08a;
+				--mint: #a7f3d0;
+				--peach: #fed7aa;
+				--sky: #bae6fd;
+			}
+			body {
+				width: 1200px;
+				height: 630px;
+				background: var(--paper);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-family: ui-monospace, 'SF Mono', Menlo, Monaco, monospace;
+				color: var(--ink);
+			}
+			.card {
+				width: 1090px;
+				height: 520px;
+				background: var(--cream);
+				border: 5px solid var(--sepia);
+				border-radius: 28px;
+				box-shadow: 14px 14px 0 var(--sepia);
+				padding: 54px 60px;
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+				position: relative;
+			}
+			.eyebrow {
+				display: inline-flex;
+				align-items: center;
+				gap: 10px;
+				align-self: flex-start;
+				background: var(--yellow);
+				border: 3px solid var(--sepia);
+				border-radius: 999px;
+				padding: 8px 20px;
+				font-size: 19px;
+				font-weight: 800;
+				letter-spacing: 0.12em;
+				text-transform: uppercase;
+			}
+			.dot {
+				width: 11px;
+				height: 11px;
+				border-radius: 50%;
+				background: var(--sepia);
+			}
+			h1 {
+				font-size: 116px;
+				font-weight: 900;
+				letter-spacing: -0.045em;
+				line-height: 1;
+				margin-top: 26px;
+			}
+			.quote {
+				font-size: 35px;
+				font-weight: 700;
+				color: var(--ink);
+				margin-top: 16px;
+			}
+			.sub {
+				font-size: 23px;
+				color: var(--ink-soft);
+				margin-top: 16px;
+				line-height: 1.45;
+			}
+			.chips {
+				display: flex;
+				gap: 16px;
+			}
+			.chip {
+				border: 3px solid var(--sepia);
+				border-radius: 14px;
+				padding: 13px 22px;
+				font-size: 21px;
+				font-weight: 800;
+				box-shadow: 5px 5px 0 var(--sepia);
+			}
+			.chip.mint {
+				background: var(--mint);
+			}
+			.chip.peach {
+				background: var(--peach);
+			}
+			.chip.sky {
+				background: var(--sky);
+			}
+			.domain {
+				position: absolute;
+				right: 60px;
+				bottom: 54px;
+				font-size: 22px;
+				font-weight: 800;
+				color: var(--ink-soft);
+			}
+		</style>
+	</head>
+	<body>
+		<div class="card">
+			<div>
+				<div class="eyebrow"><span class="dot"></span>Mac menu bar · Web · Offline</div>
+				<h1>NoteBro</h1>
+				<div class="quote">A quick note app. That's the whole thing.</div>
+				<div class="sub">
+					Open it and the cursor is already blinking. No folders, no title fields, no account.
+				</div>
+			</div>
+			<div class="chips">
+				<span class="chip mint">Mac Menu Bar</span>
+				<span class="chip peach">&#8997;Space anywhere</span>
+				<span class="chip sky">$19 AUD, pay once</span>
+			</div>
+			<div class="domain">notebro.app</div>
+		</div>
+	</body>
+</html>

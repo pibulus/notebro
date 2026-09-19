@@ -20,7 +20,7 @@
 	</header>
 
 	<main class="space-y-6">
-		<div class="card-frame p-6 sm:p-8 bg-white">
+		<div class="card-frame p-6 sm:p-8 bg-[#fffdf8]">
 			<h1 class="text-2xl sm:text-3xl font-mono font-black text-[#1e1714] tracking-tight mb-2">
 				NoteBro Privacy Policy 🔒
 			</h1>
@@ -29,7 +29,7 @@
 			</p>
 		</div>
 
-		<div class="card-frame p-6 sm:p-8 bg-white space-y-6 font-mono text-xs sm:text-sm text-[#1e1714] leading-relaxed">
+		<div class="card-frame p-6 sm:p-8 bg-[#fffdf8] space-y-6 font-mono text-xs sm:text-sm text-[#1e1714] leading-relaxed">
 			<section>
 				<h2 class="text-base font-black uppercase tracking-wider text-[#1e1714] mb-2 flex items-center gap-2">
 					<span class="text-lg">1.</span> The 10-Second Summary

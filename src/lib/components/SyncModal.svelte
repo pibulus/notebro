@@ -130,7 +130,7 @@
 			<button
 				type="button"
 				on:click={onClose}
-				class="btn-bro absolute top-4 right-4 w-8 h-8 rounded-full bg-white text-sm font-bold flex items-center justify-center"
+				class="btn-bro absolute top-4 right-4 w-8 h-8 rounded-full bg-[#fffdf8] text-sm font-bold flex items-center justify-center"
 				aria-label="Close"
 			>
 				✕
@@ -159,14 +159,14 @@
 						Scan with iPhone camera or another screen to pair instantly.
 					</p>
 				{:else}
-					<div class="w-48 h-48 flex items-center justify-center bg-white rounded-2xl border-2 border-[#1e1714] text-xs font-mono text-[#9b8f88]">
+					<div class="w-48 h-48 flex items-center justify-center bg-[#fffdf8] rounded-2xl border-2 border-[#1e1714] text-xs font-mono text-[#9b8f88]">
 						Generating QR...
 					</div>
 				{/if}
 			</div>
 
 			<!-- Passport Code Box -->
-			<div class="bg-white p-3.5 rounded-xl border-2 border-[#1e1714] shadow-brutal-xs mb-4 text-left">
+			<div class="bg-[#fffdf8] p-3.5 rounded-xl border-2 border-[#1e1714] shadow-brutal-xs mb-4 text-left">
 				<div class="flex items-center justify-between mb-1.5">
 					<label for="passport-code-input" class="text-[11px] font-mono font-bold text-[#625854] uppercase tracking-wider">
 						Your Passport Key:

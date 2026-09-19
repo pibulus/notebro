@@ -24,12 +24,13 @@
 	});
 
 	export function focusEditor() {
-		if (textareaRef) {
-			textareaRef.focus();
-			// Put cursor at end or preserve
-			const len = textareaRef.value.length;
-			textareaRef.setSelectionRange(len, len);
-		}
+		if (!textareaRef) return;
+		textareaRef.focus();
+		const len = textareaRef.value.length;
+		textareaRef.setSelectionRange(len, len);
+		// setSelectionRange scrolls to the caret, which buries the top of an
+		// existing note. The first line is the one worth seeing on arrival.
+		textareaRef.scrollTop = 0;
 	}
 
 	function handleInput(e) {
@@ -95,86 +96,86 @@
 	class="relative w-full max-w-2xl mx-auto flex flex-col card-frame transition-all duration-200"
 	style="border-top: 8px solid {activeColorObj.hex};"
 >
-	<!-- Card Top Bar / Metadata -->
-	<div class="flex items-center justify-between px-4 sm:px-6 pt-3 pb-2 border-b-2 border-[#1e1714]/10 bg-[#faf8f5] rounded-t-[1rem]">
-		<div class="flex items-center gap-2">
+	<!-- Metadata is ambient, actions are quiet. This bar previously held six
+	     chunky chips and out-shouted the note itself. -->
+	<div
+		class="group flex items-center justify-between gap-3 px-4 sm:px-6 pt-3 pb-2 border-b-2 border-[#4a3f38]/10 bg-[#faf6ef] rounded-t-[1rem]"
+	>
+		<div class="flex items-center gap-2.5 min-w-0">
 			<span
-				class="w-3 h-3 rounded-full border border-[#1e1714]/30"
+				class="w-2.5 h-2.5 shrink-0 rounded-full border border-[#4a3f38]/30"
 				style="background-color: {activeColorObj.hex};"
-				title="{activeColorObj.label} Card"
 			></span>
-			<span class="text-xs font-mono font-medium text-[#625854]">
+			<span class="text-[11px] font-mono text-[#8a7d76] truncate">
 				{formattedDate(card.updatedAt)}
 			</span>
+			{#if card.pinned}
+				<span
+					class="shrink-0 text-[10px] font-mono font-black uppercase tracking-wider text-[#1e1714] bg-[#fef08a] border border-[#4a3f38]/40 rounded px-1.5 py-0.5"
+				>
+					Pinned
+				</span>
+			{/if}
+		</div>
 
-			<!-- Pin Toggle -->
+		<div
+			class="flex items-center gap-1 opacity-60 group-hover:opacity-100 focus-within:opacity-100 transition-opacity"
+		>
+			<span class="text-[11px] font-mono text-[#8a7d76] hidden sm:inline mr-1">
+				{words}{words === 1 ? ' word' : ' words'}
+			</span>
+
 			<button
 				type="button"
 				on:click={onTogglePin}
-				class="btn-bro px-2 py-0.5 text-[11px] font-mono font-bold rounded-md flex items-center gap-1 transition-all {card.pinned ? 'bg-[#fef08a] text-[#1e1714]' : 'bg-white text-[#9b8f88]'}"
-				title={card.pinned ? "Unpin card" : "Pin to top of stack"}
+				class="px-2 py-1 text-[11px] font-mono font-bold rounded-md text-[#625854] hover:bg-[#fef08a] hover:text-[#1e1714] transition-colors"
+				title={card.pinned ? 'Unpin card' : 'Pin to top of stack'}
 			>
-				<span>📌</span>
-				<span class="hidden sm:inline">{card.pinned ? "Pinned" : "Pin"}</span>
+				{card.pinned ? 'Unpin' : 'Pin'}
 			</button>
 
-			<!-- Todo Checklist Insert -->
 			<button
 				type="button"
 				on:click={onInsertTodo}
-				class="btn-bro px-2 py-0.5 text-[11px] font-mono font-bold bg-white hover:bg-[#f5efe3] text-[#1e1714] rounded-md hidden sm:flex items-center gap-1"
-				title="Insert checklist checkbox"
+				class="px-2 py-1 text-[11px] font-mono font-bold rounded-md text-[#625854] hover:bg-[#fef08a] hover:text-[#1e1714] transition-colors hidden sm:block"
+				title="Insert a checklist line"
 			>
-				<span>☑︎ Todo</span>
+				Todo
 			</button>
-		</div>
 
-		<div class="flex items-center gap-2 sm:gap-3">
-			<span class="text-xs font-mono text-[#9b8f88] hidden sm:inline">
-				{words} {words === 1 ? 'word' : 'words'}
-			</span>
-
-			<!-- Copy Button -->
 			<button
 				type="button"
 				on:click={handleCopy}
-				class="btn-bro px-2.5 py-1 text-xs font-mono font-bold bg-white text-[#1e1714] rounded-lg flex items-center gap-1"
+				class="px-2 py-1 text-[11px] font-mono font-bold rounded-md text-[#625854] hover:bg-[#fef08a] hover:text-[#1e1714] transition-colors"
 				title="Copy card text"
 			>
-				{#if copied}
-					<span>✓ Copied!</span>
-				{:else}
-					<span>📋 Copy</span>
-				{/if}
+				{copied ? 'Copied' : 'Copy'}
 			</button>
 
-			<!-- Delete Button -->
 			{#if !isOnlyCard}
 				{#if showDeleteConfirm}
-					<div class="flex items-center gap-1">
-						<button
-							type="button"
-							on:click={onDelete}
-							class="btn-bro px-2 py-1 text-xs font-bold bg-[#fca5a5] text-[#7f1d1d] rounded-lg"
-						>
-							Discard?
-						</button>
-						<button
-							type="button"
-							on:click={() => (showDeleteConfirm = false)}
-							class="text-xs text-[#625854] px-1 hover:underline"
-						>
-							No
-						</button>
-					</div>
+					<button
+						type="button"
+						on:click={onDelete}
+						class="px-2 py-1 text-[11px] font-mono font-black rounded-md bg-[#fca5a5] text-[#7f1d1d]"
+					>
+						Discard?
+					</button>
+					<button
+						type="button"
+						on:click={() => (showDeleteConfirm = false)}
+						class="px-1.5 py-1 text-[11px] font-mono text-[#8a7d76] hover:text-[#1e1714]"
+					>
+						No
+					</button>
 				{:else}
 					<button
 						type="button"
 						on:click={() => (showDeleteConfirm = true)}
-						class="text-xs text-[#9b8f88] hover:text-[#ef4444] p-1 transition-colors"
+						class="px-2 py-1 text-[11px] font-mono font-bold rounded-md text-[#8a7d76] hover:bg-[#fca5a5]/40 hover:text-[#7f1d1d] transition-colors"
 						title="Discard card"
 					>
-						🗑️
+						Discard
 					</button>
 				{/if}
 			{/if}
@@ -182,13 +183,13 @@
 	</div>
 
 	<!-- Card Body / Blinking Cursor Editor -->
-	<div class="relative p-4 sm:p-7 flex-1 min-h-[360px] sm:min-h-[420px] bg-white rounded-b-[1.25rem] sm:rounded-b-[1.5rem]">
+	<div class="relative p-4 sm:p-7 flex-1 min-h-[360px] sm:min-h-[420px] bg-[#fffdf8] rounded-b-[1.25rem] sm:rounded-b-[1.5rem]">
 		<textarea
 			bind:this={textareaRef}
 			value={card.content}
 			on:input={handleInput}
 			placeholder="Start writing... NoteBro is already holding your note."
-			class="w-full h-full min-h-[340px] sm:min-h-[390px] resize-none outline-none border-none bg-transparent font-mono text-[15px] sm:text-[16px] leading-[1.8] text-[#1e1714] placeholder-[#9b8f88]/60 focus:ring-0 selection:bg-[#fef08a]"
+			class="paper-scroll w-full h-full min-h-[340px] sm:min-h-[390px] resize-none outline-none border-none bg-transparent font-mono text-[15px] sm:text-[16px] leading-[1.8] text-[#1e1714] placeholder-[#9b8f88]/60 focus:ring-0 selection:bg-[#fef08a]"
 			spellcheck="false"
 		></textarea>
 	</div>

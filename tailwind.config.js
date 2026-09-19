@@ -29,7 +29,7 @@ export default {
 			},
 			colors: {
 				paper: '#fffaf0',
-				card: '#ffffff',
+				card: '#fbf1e4',
 				ink: '#1e1714',
 				'ink-soft': '#625854',
 				'ink-muted': '#9b8f88',

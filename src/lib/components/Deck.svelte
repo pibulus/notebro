@@ -153,62 +153,26 @@
 </script>
 
 <div class="w-full flex flex-col items-center">
-	<!-- Deck Navigation Bar -->
-	<div class="w-full max-w-2xl flex items-center justify-between mb-2 px-2 sm:px-0">
-		<!-- Left / Prev Button -->
-		<div class="flex items-center gap-2">
-			<button
-				type="button"
-				on:click={prevCard}
-				disabled={currentFilteredPos <= 0}
-				class="btn-bro px-3 py-1.5 bg-white text-[#1e1714] rounded-xl font-mono text-sm font-bold disabled:opacity-30 disabled:cursor-not-allowed flex items-center gap-1"
-				title="Previous Card (⌥←)"
-			>
-				<span>←</span>
-				<span class="hidden sm:inline">Prev</span>
-			</button>
-
-			<span class="font-mono text-xs sm:text-sm font-bold text-[#1e1714] bg-[#f5efe3] px-3 py-1.5 rounded-xl border-2 border-[#1e1714] shadow-brutal-sm">
-				Card {currentFilteredPos >= 0 ? currentFilteredPos + 1 : 1} of {activeIndices.length}
-			</span>
-
-			<!-- Right / Next Button -->
-			<button
-				type="button"
-				on:click={nextCard}
-				disabled={currentFilteredPos >= activeIndices.length - 1}
-				class="btn-bro px-3 py-1.5 bg-white text-[#1e1714] rounded-xl font-mono text-sm font-bold disabled:opacity-30 disabled:cursor-not-allowed flex items-center gap-1"
-				title="Next Card (⌥→)"
-			>
-				<span class="hidden sm:inline">Next</span>
-				<span>→</span>
-			</button>
-		</div>
-
-		<!-- Highlighter Marker Bar -->
-		<HighlighterBar
-			activeColor={currentCard ? currentCard.color : 'yellow'}
-			onSelectColor={handleColorSelect}
-			onHighlightSelection={handleHighlightSelection}
-		/>
-	</div>
-
 	<!-- Hashtag Filter Pills (Instant tag chips) -->
 	{#if allTags.length > 0}
-		<div class="w-full max-w-2xl flex items-center gap-1.5 mb-3 px-2 sm:px-0 overflow-x-auto py-1">
+		<div class="w-full max-w-2xl flex items-center gap-3 mb-2 px-2 sm:px-0 overflow-x-auto no-scrollbar py-0.5">
 			<button
 				type="button"
 				on:click={() => (selectedTag = null)}
-				class="btn-bro px-2.5 py-0.5 rounded-full text-xs font-mono font-bold transition-all {selectedTag === null ? 'bg-[#fef08a] text-[#1e1714]' : 'bg-white text-[#625854]'}"
+				class="shrink-0 font-mono text-[11px] tracking-wide transition-colors {selectedTag === null
+					? 'text-[#1e1714] font-black underline underline-offset-4 decoration-2 decoration-[#fbbf24]'
+					: 'text-[#8a7d76] hover:text-[#1e1714]'}"
 			>
-				All ({cards.length})
+				All {cards.length}
 			</button>
 
 			{#each allTags as tag}
 				<button
 					type="button"
 					on:click={() => (selectedTag = selectedTag === tag ? null : tag)}
-					class="btn-bro px-2.5 py-0.5 rounded-full text-xs font-mono font-bold transition-all {selectedTag === tag ? 'bg-[#a7f3d0] text-[#1e1714]' : 'bg-white text-[#625854]'}"
+					class="shrink-0 font-mono text-[11px] tracking-wide transition-colors {selectedTag === tag
+						? 'text-[#1e1714] font-black underline underline-offset-4 decoration-2 decoration-[#34d399]'
+						: 'text-[#8a7d76] hover:text-[#1e1714]'}"
 				>
 					{tag}
 				</button>
@@ -231,15 +195,24 @@
 		{/key}
 	{/if}
 
-	<!-- Card Stack Pager Dots / Quick Jumper -->
-	<div class="flex items-center justify-center gap-1.5 mt-4 flex-wrap max-w-xl px-4">
+	<!-- Markers + pager: the only chrome below the card. -->
+	<div class="w-full max-w-2xl mt-4 px-2 sm:px-0 flex items-center justify-between gap-4">
+		<HighlighterBar
+			activeColor={currentCard ? currentCard.color : 'yellow'}
+			onSelectColor={handleColorSelect}
+			onHighlightSelection={handleHighlightSelection}
+		/>
+
+		<div class="flex items-center justify-end gap-1.5 flex-wrap">
 		{#each activeIndices as originalIdx, i}
 			<button
 				type="button"
 				on:click={() => onIndexUpdate(originalIdx)}
 				class="h-2 rounded-full transition-all border border-[#1e1714]/40 {activeIndex === originalIdx ? 'w-6 bg-[#1e1714]' : 'w-2 bg-[#1e1714]/20'}"
 				title="Jump to Card {i + 1}"
+				aria-label="Jump to card {i + 1}"
 			></button>
-		{/each}
+			{/each}
+		</div>
 	</div>
 </div>

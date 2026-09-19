@@ -16,6 +16,9 @@ export const MAC_DMG = {
 	version: '1.1.0',
 	build: '7ae34c4c',
 
+	// Shown on the download button; keep it honest when the binary grows.
+	size: '2.4MB',
+
 	get filename() {
 		return `NoteBro-${this.version}.dmg`;
 	},

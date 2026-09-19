@@ -29,7 +29,7 @@
 	</header>
 
 	<main class="space-y-6">
-		<div class="card-frame p-6 sm:p-8 bg-white">
+		<div class="card-frame p-6 sm:p-8 bg-[#fffdf8]">
 			<h1 class="text-2xl sm:text-3xl font-mono font-black text-[#1e1714] tracking-tight mb-2">
 				NoteBro Support 🛟
 			</h1>
@@ -49,7 +49,7 @@
 			<div class="flex items-center gap-2 shrink-0">
 				<a
 					href="mailto:pibulus@gmail.com"
-					class="btn-bro px-4 py-2 bg-white text-[#1e1714] rounded-xl font-mono text-xs font-black"
+					class="btn-bro px-4 py-2 bg-[#fffdf8] text-[#1e1714] rounded-xl font-mono text-xs font-black"
 				>
 					✉️ Email Pablo
 				</a>
@@ -65,7 +65,7 @@
 		</div>
 
 		<!-- Shortcuts Reference -->
-		<div class="card-frame p-6 bg-white space-y-4 font-mono">
+		<div class="card-frame p-6 bg-[#fffdf8] space-y-4 font-mono">
 			<h2 class="text-base font-black uppercase tracking-wider text-[#1e1714]">
 				⌨️ Keyboard Shortcuts Cheat Sheet
 			</h2>
@@ -115,7 +115,7 @@
 		</div>
 
 		<!-- FAQs -->
-		<div class="card-frame p-6 sm:p-8 bg-white space-y-6 font-mono text-xs sm:text-sm text-[#1e1714] leading-relaxed">
+		<div class="card-frame p-6 sm:p-8 bg-[#fffdf8] space-y-6 font-mono text-xs sm:text-sm text-[#1e1714] leading-relaxed">
 			<h2 class="text-base font-black uppercase tracking-wider text-[#1e1714] mb-4">
 				Frequently Asked Questions
 			</h2>
