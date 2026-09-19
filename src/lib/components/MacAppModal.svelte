@@ -1,4 +1,5 @@
 <script>
+	import { MAC_DMG } from '$lib/config/download.js';
 	export let isOpen = false;
 	export let onClose = () => {};
 
@@ -67,12 +68,12 @@
 
 			<div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-2">
 				<a
-					href="/downloads/NoteBro-1.1.0.dmg"
+					href={MAC_DMG.href}
 					download
 					class="btn-bro px-5 py-2.5 bg-[#fef08a] text-[#1e1714] rounded-xl font-mono text-xs font-black flex items-center justify-center gap-2 border-2 border-[#1e1714] shadow-brutal-sm"
 				>
 					<span>⬇️</span>
-					<span>Download NoteBro-1.1.0.dmg (Apple Silicon)</span>
+					<span>Download {MAC_DMG.filename} (Apple Silicon)</span>
 				</a>
 				<button
 					type="button"

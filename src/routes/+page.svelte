@@ -7,6 +7,7 @@
 	import MacAppModal from '$lib/components/MacAppModal.svelte';
 	import SyncModal from '$lib/components/SyncModal.svelte';
 	import { PRICING } from '$lib/config/pricing.js';
+	import { MAC_DMG } from '$lib/config/download.js';
 	import {
 		loadCards,
 		saveCards,
@@ -147,8 +148,8 @@
 					</div>
 					<div class="flex flex-col gap-1.5">
 						<a
-							href="/downloads/NoteBro-1.1.0.dmg"
-							download
+							href={MAC_DMG.href}
+							download={MAC_DMG.filename}
 							class="btn-bro w-full py-1.5 px-3 bg-[#fef08a] text-[#1e1714] rounded-lg text-xs font-black text-center flex items-center justify-center gap-1.5"
 						>
 							<span>⬇️</span> Download .dmg
