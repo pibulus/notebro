@@ -1,6 +1,7 @@
 <script>
 	export let onNewCard = () => {};
 	export let onOpenExport = () => {};
+	export let onOpenSync = () => {};
 	export let onOpenSupport = () => {};
 	export let onOpenMacModal = () => {};
 </script>
@@ -34,6 +35,17 @@
 			title="NoteBro for Mac Menu Bar"
 		>
 			<span> Mac App</span>
+		</button>
+
+		<!-- Sync Button -->
+		<button
+			type="button"
+			on:click={onOpenSync}
+			class="btn-bro px-2.5 py-1.5 text-xs font-mono font-bold bg-white text-[#1e1714] rounded-xl flex items-center gap-1"
+			title="Sync cards across devices via Pi Vault"
+		>
+			<span>⚡️</span>
+			<span class="hidden sm:inline">Sync</span>
 		</button>
 
 		<!-- Export Button -->

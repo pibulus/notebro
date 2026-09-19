@@ -5,6 +5,7 @@
 	import SupportModal from '$lib/components/SupportModal.svelte';
 	import ExportModal from '$lib/components/ExportModal.svelte';
 	import MacAppModal from '$lib/components/MacAppModal.svelte';
+	import SyncModal from '$lib/components/SyncModal.svelte';
 	import {
 		loadCards,
 		saveCards,
@@ -19,6 +20,7 @@
 	let isSupportOpen = false;
 	let isExportOpen = false;
 	let isMacModalOpen = false;
+	let isSyncOpen = false;
 	let loaded = false;
 	let showShowcase = true;
 
@@ -26,6 +28,17 @@
 		cards = loadCards();
 		activeIndex = loadActiveIndex(cards.length - 1);
 		loaded = true;
+
+		// Check for #sync=BRO-XXXX or ?sync=BRO-XXXX from QR scan
+		const hash = window.location.hash || '';
+		if (hash.includes('sync=')) {
+			const params = new URLSearchParams(hash.replace(/^#/, ''));
+			const syncCode = params.get('sync');
+			if (syncCode) {
+				localStorage.setItem('notebro_passport_code', syncCode.toUpperCase());
+				isSyncOpen = true;
+			}
+		}
 	});
 
 	function handleCardsUpdate(updated) {
@@ -57,6 +70,7 @@
 	<!-- Top Bar -->
 	<BroHeader
 		onNewCard={handleNewCard}
+		onOpenSync={() => (isSyncOpen = true)}
 		onOpenExport={() => (isExportOpen = true)}
 		onOpenSupport={() => (isSupportOpen = true)}
 		onOpenMacModal={() => (isMacModalOpen = true)}
@@ -229,3 +243,4 @@
 <SupportModal isOpen={isSupportOpen} onClose={() => (isSupportOpen = false)} />
 <ExportModal isOpen={isExportOpen} {cards} onClose={() => (isExportOpen = false)} />
 <MacAppModal isOpen={isMacModalOpen} onClose={() => (isMacModalOpen = false)} />
+<SyncModal isOpen={isSyncOpen} {cards} onCardsUpdate={handleCardsUpdate} onClose={() => (isSyncOpen = false)} />
